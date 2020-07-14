@@ -1,0 +1,28 @@
+{% extends 'homebase.html' %}
+{% block body %}
+
+    
+        <section id="products">
+            <div class="container">
+                <div class="row">
+                    {% for item in products %}
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <img class="card-img-top" src="{{ item.image.url }}" alt="">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <span class="price">{{ item.price }}
+                                        <span class="currenc">تومان</span>
+                                    </span>
+                                    <a href="" class="btn btn-outline-success btn-sm">سبد خرید</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+    
+
+{% endblock %}
