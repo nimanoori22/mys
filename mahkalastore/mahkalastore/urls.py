@@ -20,10 +20,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', include('home.urls')),
+    path('about/', views.aboutus, name='aboutus'),
+    path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
     path('product/', include('product.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('category/<int:id>/<slug:slug>/', views.category_product, name='category_product'),
-    path('search/', views.search, name='search')
+    path('search/', views.search, name='search'),
+    path('order/', include('order.urls')),
+    path('product/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

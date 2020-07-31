@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'mptt',
     'ckeditor',
     'home',
+    'user',
+    'order',
 ]
 
 MIDDLEWARE = [

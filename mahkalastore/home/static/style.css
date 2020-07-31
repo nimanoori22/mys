@@ -1,5 +1,9 @@
 body {
-    direction: rtl;
+    /* direction: rtl; */
+    color: #515151;
+    background: #f5f5f5;
+    position: relative;
+    padding-top: 113px;
 }
 
 .card-img-top {
@@ -7,3 +11,15 @@ body {
     height: 15vw;
     object-fit: contain;
 }
+
+.producttitle {
+    font-size: 1.143rem;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.alignright {
+    /* float: right; */
+    text-align: center;
+}
+  
