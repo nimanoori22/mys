@@ -1,16 +1,26 @@
 from django.shortcuts import render, HttpResponse, HttpResponsePermanentRedirect
-from product.models import Product, Category, Images
+from product.models import Product, Category, Images, Comment
 from home.models import Setting, ContactForm, ContactMessage
 from .forms import SearchForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+import json
 # Create your views here.
 
 def index(request):
     page = "home"
     category  = Category.objects.all()
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': page, 'category': category}
+    products_slider = Product.objects.all().order_by('id')[:4] #first 4 products
+    products_latest= Product.objects.all().order_by('-id')[:4] #last 4 products
+    products_picked = Product.objects.all().order_by('?')[:4] #randomly picked
+
+    context = {'setting': setting, 
+    'page': page,
+    'products_slider': products_slider,
+    'products_latest': products_latest,
+    'products_picked': products_picked,
+    'category': category}
     return render(request, 'index.html', context=context)
 
 def aboutus(request):
@@ -53,13 +63,13 @@ def search(request):
             query = form.cleaned_data['query']
             catid = form.cleaned_data['catid']
             if catid == 0:
-                products = Product.objects.filter(title__incontains=query)
+                products = Product.objects.filter(name__icontains=query)
             else:
-                products = Product.objects.filter(title__incontains=query, category_id=catid)
+                products = Product.objects.filter(name__icontains=query, category_id=catid)
 
             category = Category.objects.all()
             context = {
-                'product': products,
+                'products': products,
                 'query': query,
                 'category': category,
             }
@@ -67,14 +77,32 @@ def search(request):
 
     return HttpResponsePermanentRedirect('/')
 
+def search_auto(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        products = Product.objects.filter(name__icontains=q)
+
+        results = []
+        for rs in products:
+            product_json = {}
+            product_json = rs.name
+            results.append(product_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 
 def product_detail(request, id, slug):
     category = Category.objects.all()
     product = Product.objects.get(pk=id)
     images = Images.objects.filter(product_id=id)
+    comments = Comment.objects.filter(product_id=id, status='True')
     context = {
         'product': product,
         'category': category,
-        'images': images,
+        'mypics': images,
+        'comments': comments,
     }
     return render(request, 'product_detail.html', context=context)
