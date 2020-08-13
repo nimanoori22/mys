@@ -5,7 +5,7 @@
 <div id="breadcrumb">
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li class="active">Products</li>
         </ul>
     </div>
@@ -204,7 +204,7 @@
                                         <span>New</span>
                                         <span class="sale">-20%</span>
                                     </div>
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+                                    <a href="/product/{{ rs.id }}/{{ rs.slug }}"><button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button></a>
                                     <img src="{{ rs.image.url }}" alt="">
                                 </div>
                                 <div class="product-body">
@@ -216,11 +216,11 @@
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-o empty"></i>
                                     </div>
-                                    <h2 class="product-name"><a href="#">{{ rs.name }}</a></h2>
+                                    <h2 class="product-name"><a href="/product/{{ rs.id }}/{{ rs.slug }}">{{ rs.name }}</a></h2>
                                     <div class="product-btns">
                                         <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                         <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                        <a href="/order/addtoshopcart/{{ rs.id }}"></a><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
